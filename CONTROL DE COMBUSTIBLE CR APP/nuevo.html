@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        
+		<title>Proyecto Final 4GL --- JORGE CASTRO</title>
+		
+		
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css" />
+
+	</head>
+	<body ng-app="App" ng-controller="nuevo-Controller">
+		<div class="container container-form">
+			<div class="row">
+				<form class="form-horizontal">
+					<div class="col-sm-4 col-sm-offset-4 div-center div-title">
+						<h1>Nuevo Registro</h1>
+					</div>
+
+					<div class="col-sm-10 col-sm-offset-1 div-title"><hr/></div>
+					<div class="div-title"></div>
+
+					<div class="col-sm-10 col-sm-offset-1 div-center">
+						<div class="form-group">
+							<label for="txtFecha" class="col-sm-3 control-label">Fecha</label>
+							<div class="col-sm-9">
+								<div class="input-group">
+									<div class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></div>
+									<input type="text" class="form-control" id="txtFecha" name="txtFecha" placeholder="Fecha" ng-model="oGasolina.Fecha" required>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-10 col-sm-offset-1 div-center">
+						<div class="form-group">
+							<label for="txtKilometraje" class="col-sm-3 control-label">Kilometraje</label>
+							<div class="col-sm-9">
+								<input type="number" class="form-control" id="txtKilometraje" name="txtKilometraje" placeholder="Kilometraje Actual" ng-model="oGasolina.Kilometraje" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-10 col-sm-offset-1 div-center">
+						<div class="form-group">
+							<label for="ddlTipoGas" class="col-sm-3 control-label">Tipo de Gasolina</label>
+							<div class="col-sm-9">
+								<select id="ddlTipoGas" name="ddlTipoGas" class="combobox form-control" ng-model="oGasolina.TipoGasolina"
+                                ng-options="tipo.Nombre for tipo in ListTipoGasolina track by tipo.Id"></select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-10 col-sm-offset-1 div-center">
+						<div class="form-group">
+							<label for="txtLitros" class="col-sm-3 control-label">Cantidad de Litros</label>
+							<div class="col-sm-9">
+								<input type="number" class="form-control" id="txtLitros" name="txtLitros" placeholder="Litros" ng-model="oGasolina.Litros" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-10 col-sm-offset-1 div-center">
+						<div class="form-group">
+							<label for="txtPago" class="col-sm-3 control-label">Total Pagado</label>
+							<div class="col-sm-9">
+								<input type="number" class="form-control" id="txtPago" name="txtPago" placeholder="Pago" ng-model="oGasolina.Pago" required>
+							</div>
+						</div>
+					</div>
+
+					
+
+					
+
+					<div class="div-title"></div>
+
+					<div class="col-sm-2 col-sm-offset-5 div-center">
+						<button id="btnGuardar" name="btnGuardar" class="btn btn-info btn-lg" type="submit" ng-click="Save()">Guardar</button> 
+						<a href="index.html"><input id="btnIndex" name="btnIndex" class="btn btn-info btn-lg" type="button" value="Volver"></input> </a>
+					</div>
+				</form>
+				
+			</div>
+		</div>
+
+		<div class="modal fade" id="modalSuccess" tabindex="-3" role="dialog" aria-labelledby="modalSuccessLabel" style="z-index:2000">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header modal-title-success">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title" id="modalSuccessLabel">Informacion</h4>
+		            </div>
+		            <div class="modal-body">
+		                <h3 class="modal-message" id="modalSuccessMessage"></h3>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/angular.js"></script>
+		<script type="text/javascript" src="js/angular-smart-table/dist/smart-table.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+
+		<script type="text/javascript" src="nuevo.js"></script>
+        
+        <script type="text/javascript">
+            //app.initialize();
+
+            $( function() {
+				$( "#txtFecha" ).datepicker({
+					showOtherMonths: true,
+					selectOtherMonths: true
+				});
+			});
+
+			
+
+        </script>
+
+	</body>
+</html>

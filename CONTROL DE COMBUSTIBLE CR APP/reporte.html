@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+		<title>Proyecto Final 4GL --- LUIS ASTORGA</title>
+
+
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css" />
+
+	</head>
+	<body ng-app="App" ng-controller="reporte-Controller">
+		<div class="container container-form">
+			<div class="row">
+				<section class="form-horizontal">
+					<div class="col-sm-4 col-sm-offset-4 div-center div-title">
+						<h1>Reporte</h1>
+					</div>
+
+					<div class="col-sm-10 col-sm-offset-1 div-title"><hr/></div>
+
+					<div class="col-sm-10 col-sm-offset-1 div-center">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<table st-table="listGasolinaDisplay" st-safe-src="listGasolina" class="table table-striped">
+		                            <thead>
+		                                <!--<tr>
+		                                    <th colspan="4"><input st-search="" class="form-control" placeholder="Buscar ..." type="text" /></th>
+		                                </tr>-->
+		                                <tr>
+		                                    <th st-sort="Fecha">Fecha</th>
+		                                    <th st-sort="Kilometraje">Km</th>
+		                                    <th st-sort="TipoGasolina">Tipo</th>
+		                                    <th st-sort="Litros">Litros</th>
+		                                    <th st-sort="Pago">Pago</th>
+		                                    <th></th>
+		                                </tr>
+		                            </thead>
+		                            <tbody>
+		                                <tr data-ng-repeat="x in listGasolinaDisplay">
+		                                    <!--<td>{{ $index + 1 }}</td>-->
+		                                    <td>{{x.Fecha}}</td>
+		                                    <td>{{x.Kilometraje}}</td>
+		                                    <td>{{x.TipoGasolina.Nombre}}</td>
+		                                    <td>{{x.Litros}}</td>
+		                                    <td>{{x.Pago}}</td>
+		                                    <td>
+		                                        <button type="button" ng-click="selectItem(x)" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
+		                                    </td>
+		                                </tr>
+		                            </tbody>
+		                        </table>
+	                        </div>
+						</div>
+					</div>
+
+					<div class="div-title"></div>
+
+					<div class="col-sm-2 col-sm-offset-5 div-center">
+						<a href="index.html"><input id="btnIndex" name="btnIndex" class="btn btn-info btn-lg" type="button" value="Volver"></input> </a>
+					</div>
+				</section>
+
+			</div>
+		</div>
+
+		<div class="modal fade" id="modalSuccess" tabindex="-3" role="dialog" aria-labelledby="modalSuccessLabel" style="z-index:2000">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header modal-title-success">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title" id="modalSuccessLabel">Informacion</h4>
+		            </div>
+		            <div class="modal-body">
+		                <h3 class="modal-message" id="modalSuccessMessage"></h3>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/angular.js"></script>
+		<script type="text/javascript" src="js/angular-smart-table/dist/smart-table.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+
+
+		<script type="text/javascript" src="reporte.js"></script>
+
+        <script type="text/javascript">
+            //app.initialize();
+        </script>
+
+	</body>
+</html>

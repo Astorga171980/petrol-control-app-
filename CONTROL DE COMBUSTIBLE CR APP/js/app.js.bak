@@ -1,0 +1,180 @@
+function crearTabla(transaccion){
+    //transaccion.executeSql('Drop TABLE todo');
+	transaccion.executeSql('CREATE TABLE IF NOT EXISTS todo (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Opcion, Cantidad)');
+	transaccion.executeSql('CREATE TABLE IF NOT EXISTS todo2 (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Nombre, Telefono)');
+
+};
+
+function errorCB(err) {
+    alert("Error processing SQL: "+err.code);
+};
+
+function successCB() {
+};
+var app = angular.module('App', []);
+
+app.controller('Controller', function($scope) {
+    $scope.updated = false;
+    $scope.Opcion = "";
+    $scope.todo = [];
+	$scope.Nombre = "";
+	$scope.todo2 = [];
+
+	$scope.updated = false;
+    $scope.Cantidad = "";
+    $scope.todo = [];
+	$scope.Telefono = "";
+    $scope.todo2 = [];
+
+    //var db = window.openDatabase("4glTodo", "1.0", "4gl Todo", 1000000);
+    //db.transaction(crearTabla, errorCB, successCB);
+    //db.transaction($scope.leerTabla, errorCB);
+    //var db = window.openDatabase ('LaFruteria',1.0,'basedatos laFruteria',1000000);
+
+	$scope.BorrarRecord = function(tx){
+		var sql = 'DELETE FROM todo WHERE id='+$scope.RecordToDelete;
+	    tx.executeSql(sql);
+
+
+	    for(i=0;i<$scope.todo.length;i++){
+	    	$scope.LastId = i;
+	    	if($scope.todo[i].Id == $scope.RecordToDelete){
+		    	$scope.$apply(function(){
+					//$scope.todo[$scope.LastId].shift();
+					$scope.todo.splice($scope.LastId, 1);
+		        });
+		    }
+
+		}
+
+
+	}
+
+	$scope.InsertarRecord = function(tx) {
+		//var sql = 'INSERT INTO todo (id, task) VALUES ('+$scope.todo.length+', "'+$scope.Opcion+'","'+$scope.Cantidad+'")';
+		var sql = 'INSERT INTO todo (Opcion, Cantidad) VALUES ("'+$scope.Opcion+'","'+$scope.Cantidad+'")';
+	    tx.executeSql(sql);
+	}
+
+	$scope.leerTabla = function(tx) {
+	    tx.executeSql('SELECT * FROM todo', [], $scope.querySuccess, errorCB);
+	}
+
+	$scope.querySuccess = function(tx, results) {
+	    var len = results.rows.length;
+	    for (var i=0; i<len; i++){
+	    	$scope.newTodo = {
+				"Id":results.rows.item(i).id,
+	            "Label":results.rows.item(i).Opcion,
+	            "Cantidad":results.rows.item(i).Cantidad
+	        };
+
+	        $scope.$apply(function(){
+				$scope.todo.push($scope.newTodo);
+	        });
+
+	     }
+	}
+
+	$scope.NuevaTarea = function(){
+		$scope.Opcion = "";
+		$('#myModal').modal('show');
+	}
+
+
+	$scope.NuevaTarea = function(){
+		$scope.Cantidad = "";
+		$('#myModal').modal('show');
+	}
+
+	$scope.GrabarTask = function(){
+        var newTodo = {
+            "Id":$scope.todo.length + 1,
+			"Label":$scope.Opcion,
+            "Cantidad":$scope.Cantidad
+        };
+        $scope.todo.push(newTodo);
+        db.transaction($scope.InsertarRecord, errorCB, successCB);
+        //$scope.Opcion = "";
+		//$scope.Cantidad = "";
+    }
+
+    $scope.borrar = function(id){
+    	$scope.RecordToDelete = id;
+    	db.transaction($scope.BorrarRecord, errorCB, successCB);
+    }
+
+    $scope.BorrarRecord1 = function(tx){
+			var sql = 'DELETE FROM todo2 WHERE id='+$scope.RecordToDelete;
+		    tx.executeSql(sql);
+
+
+		    for(i=0;i<$scope.todo2.length;i++){
+		    	$scope.LastId = i;
+		    	if($scope.todo2[i].Id == $scope.RecordToDelete){
+			    	$scope.$apply(function(){
+						//$scope.todo2[$scope.LastId].shift();
+						$scope.todo2.splice($scope.LastId, 1);
+			        });
+			    }
+
+			}
+
+		}
+
+		$scope.InsertarDatos = function(tx) {
+			//var sql = 'INSERT INTO todo2 (id, Datos) VALUES ('+$scope.todo.length+', "'+$scope.Nombre+'","'+$scope.Telefono+'")';
+			var sql = 'INSERT INTO todo2 (Nombre, Telefono) VALUES ("'+$scope.Nombre+'","'+$scope.Telefono+'")';
+		    tx.executeSql(sql);
+		}
+
+		$scope.leerDatos = function(tx) {
+		    tx.executeSql('SELECT * FROM todo2', [], $scope.querySuccess, errorCB);
+		}
+
+		$scope.querySuccess = function(tx, results) {
+		    var len = results.rows.length;
+		    for (var i=0; i<len; i++){
+		    	$scope.newTodo = {
+					"Id":results.rows.item(i).id,
+		            "Nombre":results.rows.item(i).Nombre,
+		            "Telefono":results.rows.item(i).Telefono
+		        };
+
+		        $scope.$apply(function(){
+					$scope.todo2.push($scope.newTodo);
+		        });
+
+		     }
+		}
+
+		$scope.Datos = function(){
+			$scope.Nombre = "";
+			$('#myDatos').modal('show');
+		}
+
+
+		$scope.Datos = function(){
+			$scope.Telefono = "";
+			$('#myDatos').modal('show');
+		}
+
+		$scope.GrabarDatos = function(){
+	        var newTodo = {
+	            "Id":$scope.todo2.length + 1,
+				"Nombre":$scope.Nombre,
+	            "Telefono":$scope.Telefono
+	        };
+	        $scope.todo2.push(newTodo);
+	        db.transaction($scope.InsertarDatos, errorCB, successCB);
+	        //$scope.Nombre = "";
+			//$scope.Telefono = "";
+	    }
+
+	    $scope.borrar1 = function(id){
+	    	$scope.RecordToDelete = id;
+	    	db.transaction($scope.BorrarRecord1, errorCB, successCB);
+	    }
+
+
+});
